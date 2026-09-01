@@ -1,5 +1,23 @@
 {
-  "extends": [
-    "github>unional/renovate-preset"
-  ]
+	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
+	"extends": ["github>unional/renovate-preset"],
+	"platformAutomerge": true,
+	"minimumReleaseAge": "1 day",
+	"packageRules": [
+		{
+			"description": "Dev tooling and CI actions do not reach the published package, so let them merge themselves.",
+			"matchDepTypes": ["devDependencies"],
+			"matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+			"automerge": true
+		},
+		{
+			"matchManagers": ["github-actions"],
+			"automerge": true
+		},
+		{
+			"description": "Runtime and peer ranges change what consumers resolve; those stay manual.",
+			"matchDepTypes": ["dependencies", "peerDependencies"],
+			"automerge": false
+		}
+	]
 }
