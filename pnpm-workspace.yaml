@@ -1,0 +1,5 @@
+# Native postinstalls jest 30 pulls in; without these the install warns and the
+# native resolver falls back to its slower JS path.
+allowBuilds:
+  '@parcel/watcher': true
+  unrs-resolver: true
