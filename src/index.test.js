@@ -90,8 +90,10 @@ describe('Jest Watch Toggle Plugin', () => {
 			},
 		})
 
-		it('returns a resolved, falsey promise', () => {
-			expect(plugin.run({}, () => {})).toEqual(Promise.resolve())
+		it('returns a resolved, falsey promise', async () => {
+			const result = plugin.run({}, () => {})
+			expect(result).toBeInstanceOf(Promise)
+			await expect(result).resolves.toBeFalsy()
 		})
 
 		it('invokes `updateConfigAndRun()` with the proper option', () => {
