@@ -2,9 +2,10 @@ name: pull-request
 on:
   pull_request:
     types: [opened, synchronize]
+  merge_group:
 
 jobs:
   code:
-    uses: repobuddy/.github/.github/workflows/pnpm-verify.yml@main
+    uses: repobuddy/.github/.github/workflows/pnpm-verify.yml@v2
     with:
       os: '["ubuntu-latest"]'
