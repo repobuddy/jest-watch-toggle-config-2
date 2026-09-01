@@ -1,6 +1,6 @@
 {
 	"name": "jest-watch-toggle-config-2",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "Jest watch plugin for toggling boolean settings (e.g. verbosity, test coverage)",
 	"keywords": [
 		"jest",
