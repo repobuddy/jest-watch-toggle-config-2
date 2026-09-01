@@ -93,11 +93,11 @@ As of Jest 23.4.1, the following boolean options have sane defaults you can leve
 _\* Jest already reserves `c`, `o` and `v`…_
 
 [@repobuddy/jest]: https://github.com/repobuddy/jest
-[codecov-image]: https://codecov.io/gh/repobuddy/jest-watch-toggle-config/branch/main/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/repobuddy/jest-watch-toggle-config
+[codecov-image]: https://codecov.io/gh/repobuddy/jest-watch-toggle-config-2/branch/main/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/repobuddy/jest-watch-toggle-config-2
 [downloads-image]: https://img.shields.io/npm/dm/jest-watch-toggle-config-2.svg?style=flat
-[github-action-url]: https://github.com/repobuddy/jest-watch-toggle-config/actions/workflows/release.yml
-[github-nodejs]: https://github.com/repobuddy/jest-watch-toggle-config/actions/workflows/release.yml/badge.svg
+[github-action-url]: https://github.com/repobuddy/jest-watch-toggle-config-2/actions/workflows/release.yml
+[github-nodejs]: https://github.com/repobuddy/jest-watch-toggle-config-2/actions/workflows/release.yml/badge.svg
 [jest-watch-toggle-config]: https://github.com/jest-community/jest-watch-toggle-config
 [npm-image]: https://img.shields.io/npm/v/jest-watch-toggle-config-2.svg?style=flat
 [npm-url]: https://npmjs.org/package/jest-watch-toggle-config-2
