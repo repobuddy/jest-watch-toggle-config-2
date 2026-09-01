@@ -3,3 +3,10 @@
 allowBuilds:
   '@parcel/watcher': true
   unrs-resolver: true
+
+# Supply-chain soak: refuse versions published less than 24h ago.
+# This lived in `.npmrc` as `minimumreleaseage`, which is not a valid npm key and
+# never reached pnpm's typed config (`pnpm config get minimumReleaseAge` was
+# `undefined`), so the soak was silently inactive.
+minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
