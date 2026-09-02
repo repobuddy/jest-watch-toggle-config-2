@@ -6,6 +6,6 @@ on:
 
 jobs:
   code:
-    uses: ./.github/workflows/verify.yml
+    uses: repobuddy/.github/.github/workflows/pnpm-verify.yml@v2
     with:
       os: '["ubuntu-latest"]'
