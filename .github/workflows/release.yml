@@ -1,12 +1,5 @@
 # Trusted publishing (OIDC) pins the *caller* workflow filename, so this file must
-# stay named `release.yml` and must carry the publish job itself.
-#
-# The org's shared `pnpm-release-changeset-oidc.yml@v2` would normally do this, but
-# it unconditionally runs the `setup-playwright` action, which exits 1 when
-# Playwright is not installed. This package is a jest watch plugin with no browser
-# tests, so the shared workflow can never go green here. Same reason `verify.yml`
-# is a local copy. Go back to the shared workflows once `setup-playwright` skips
-# itself when Playwright is absent.
+# stay named `release.yml`.
 name: release
 on:
   push:
@@ -14,13 +7,16 @@ on:
 
 jobs:
   code:
-    uses: ./.github/workflows/verify.yml
+    uses: repobuddy/.github/.github/workflows/pnpm-verify.yml@v2
     with:
       os: '["ubuntu-latest"]'
 
   release:
+    uses: repobuddy/.github/.github/workflows/pnpm-release-changeset-oidc.yml@v2
     needs: code
-    runs-on: ubuntu-latest
+    # Declaring `permissions:` replaces the default set, so every scope the
+    # callee needs must be listed here — unlisted ones drop to `none`, not to
+    # the default.
     permissions:
       # Mints the OIDC token npm exchanges for short-lived publish credentials.
       id-token: write
@@ -28,36 +24,3 @@ jobs:
       contents: write
       # Lets changesets/action open the "version packages" PR.
       pull-requests: write
-    concurrency: ${{ github.workflow }}-${{ github.ref }}
-    steps:
-      - uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
-
-      - uses: pnpm/action-setup@v6
-
-      - uses: actions/setup-node@v7
-        with:
-          node-version: '24'
-          cache: pnpm
-          registry-url: https://registry.npmjs.org
-
-      # Trusted publishing requires npm 11.5.1+. Node LTS may ship an older npm.
-      - name: Ensure npm supports trusted publishing
-        run: |
-          npm install -g npm@latest
-          npm --version
-
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
-
-      # No .npmrc token step: the OIDC exchange supplies credentials at publish time.
-      - name: Create Release Pull Request or Publish to npm
-        id: changesets
-        uses: changesets/action@v2.0.0
-        with:
-          commit-message: 'chore: version packages'
-          version-script: pnpm run version
-          publish-script: pnpm run release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
