@@ -1,7 +1,11 @@
-const chalk = require('chalk')
+import { jest } from '@jest/globals'
+import chalk from 'chalk'
 
-jest.doMock('chalk', () => new chalk.Instance({ level: 0 }))
-const Plugin = require('./index')
+// The package is ESM, so the module registry is driven by `unstable_mockModule` and
+// a dynamic import rather than `doMock` + `require`. Colour is forced off so the
+// assertions can match the plain text of the validation messages.
+jest.unstable_mockModule('chalk', () => ({ default: new chalk.Instance({ level: 0 }) }))
+const { default: Plugin } = await import('./index.js')
 
 describe('Jest Watch Toggle Plugin', () => {
 	describe('at construction time', () => {
